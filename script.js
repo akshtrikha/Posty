@@ -2,6 +2,7 @@ import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios'
 import prettyBytes from "pretty-bytes";
+import setupEditors from "./setupEditor";
 
 const queryParamsContainer = document.querySelector('[data-query-params]');
 const requestHeadersContainer = document.querySelector('[data-request-headers]');
@@ -39,6 +40,8 @@ function updateEndTime(response) {
     return response;
 }
 
+const {requestEditor, updateResponseEditor } = setupEditors();
+
 form.addEventListener('submit', e => {
     console.log("form submitted");
     e.preventDefault();
@@ -56,7 +59,7 @@ form.addEventListener('submit', e => {
     .then((res) => {
         document.querySelector('[data-response-section]').classList.remove("d-none");
         updateResponseDetails(res);
-        // updateResponseEditor(res.data);
+        updateResponseEditor(res.data);
         updateResponseHeaders(res.headers);
         console.log(res);
      })
