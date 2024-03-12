@@ -46,6 +46,14 @@ form.addEventListener('submit', e => {
     console.log("form submitted");
     e.preventDefault();
 
+    let data;
+    try {
+        data = JSON.parse(requestEditor.state.doc.toString() || null);
+    } catch(err) {
+        console.error(err);
+        alert('JSON data was invalid');
+    }
+
     console.log(keyValuePairsToObjects(queryParamsContainer));
     console.log(keyValuePairsToObjects(requestHeadersContainer));
 
@@ -53,7 +61,8 @@ form.addEventListener('submit', e => {
         url: document.querySelector('[data-url]').value,
         method: document.querySelector('[data-method]').value,
         params: keyValuePairsToObjects(queryParamsContainer),
-        headers: keyValuePairsToObjects(requestHeadersContainer)
+        headers: keyValuePairsToObjects(requestHeadersContainer),
+        data
      })
     .catch(e => e)
     .then((res) => {

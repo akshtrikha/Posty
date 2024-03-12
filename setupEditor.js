@@ -24,7 +24,7 @@ export default function setupEditors() {
 
     const responseEditor = new EditorView({
         state: EditorState.create({
-            doc: "{}",
+            doc: "",
             extensions: [...basicExtensions, EditorView.editable.of(false)],
         }),
         parent: jsonResponseBody
